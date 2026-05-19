@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="{{ description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="{{ title }} - {{site_name}}">
+  <meta property="og:description" content="{{ description }}">
+
+  <meta property="og:url" content="{{ root_url }}">
+  <meta property="og:type" content="website">
+  <title>{{ title }} - {{site_name}}</title>
+  <link rel="stylesheet" href="/assets/styles/style_common.css">
+  <link rel="stylesheet" href="/assets/styles/style_blog.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+  <script defer src="/assets/extensions/extensions_manager.js"></script>
+  <script defer src="/assets/scripts/script_blog_articles.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  {{ extensions | safe }}
+</head>
+
+<body x-data="blogArticlePage()" x-init="init()" @popstate.window="syncFromUrl()">
+  <header @click.outside="open = false">
+    <a class="header-text" href="/">{{ site_name }}</a>
+    <div class="header-buttons" :class="{ 'is-open': open }">
+      <nav class="scroll-buttons">
+        <a type="button" class="blog-button" href="/">Blog</a>
+      </nav>
+      <div class="language-buttons">
+        <select class="language-button" @change="toggleLanguage($event.target.value)" :value="lang">
+          {% for lang in available_langs %}
+          <option value="{{ lang }}" {% if lang==language %}selected{% endif %}>
+            {{ lang }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <button type="button" class="hamburger-button" aria-label="Menu" @click="open = !open" :class="{ 'is-open': open }">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </header>
+
+  <main>
+    <article>
+      <header>
+        <h1 x-text="texts?.title?.[lang] ?? $el.innerText">
+          {{ title }}
+        </h1>
+        <div class="meta">
+          <time datetime="{{ date }}">{{ date }}</time>
+          <ul class="tags">
+            {% for tag in tags %}
+            <li class="tag"><span>{{ tag }}</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </header>
+
+      <div class="article-body" x-html="texts?.content?.[lang] ?? $el.innerHTML">
+        {{ article | safe }}
+      </div>
+    </article>
+
+    <nav class="article-navigation no-js">
+      <h2 x-text="lang === 'ja' ? '前後記事' : 'Post Navigation'">Post Navigation</h2>
+      <p class="newer-article" @click="showArticle(newerArticleId)" @pointerenter="prefetchArticle(newerArticleId)"
+        x-show="newerArticleId !== null">
+        ←
+        <span x-text="texts?.newer_article_title?.[lang] ?? 'Newer Article'">
+          Newer Article
+        </span>
+      </p>
+      <p class="older-article" @click="showArticle(olderArticleId)" @pointerenter="prefetchArticle(olderArticleId)"
+        x-show="olderArticleId !== null">
+        <span x-text="texts?.older_article_title?.[lang] ?? 'Older Article'">
+          Older Article
+        </span>
+        →
+      </p>
+    </nav>
+  </main>
+
+  <footer class="footer-navigation">
+    <nav>
+      <h2>Sitemap</h2>
+      <ol>
+        <li>Top: <a href="/">/root</a></li>
+      </ol>
+    </nav>
+  </footer>
+</body>
+
+</html>

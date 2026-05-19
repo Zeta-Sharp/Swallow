@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+  <loc>{{ article_index_data.link }}</loc>
+  <lastmod>{{ article_index_data.date }}</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+{% for article in article_data %}<url>
+  <loc>{{ article.link }}</loc>
+  <lastmod>{{ article.date }}</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.6</priority>
+</url>
+{% endfor %}</urlset>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="{{ site_description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="{{ site_name }}">
+  <meta property="og:description" content="{{ site_description }}">
+  <meta property="og:url" content="{{ root_url }}">
+  <meta property="og:type" content="website">
+  <title>{{ site_name }}</title>
+  <link rel="stylesheet" href="/assets/styles/style_common.css">
+  <link rel="stylesheet" href="/assets/styles/style_blog.css">
+  <script defer src="/assets/scripts/script_blog_index.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="blogIndex" x-init="init()">
+  <header x-data="{ open: false }" @click.outside="open = false">
+    <h1 class="header-text" @click="open = false">{{ site_name }}</h1>
+    <div class="header-buttons" :class="{ 'is-open': open }">
+      <nav class="scroll-buttons">
+      </nav>
+      <div class="language-buttons">
+        <select class="language-button" @change="toggleLanguage($event.target.value)" :value="lang">
+          {% for lang in available_langs %}
+          <option value="{{ lang }}" {% if lang==language %}selected{% endif %}>
+            {{ lang }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <button type="button" class="hamburger-button" aria-label="Menu" @click="open = !open" :class="{ 'is-open': open }">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </header>
+  <main>
+    <search>
+      <h2>Tag search:</h2>
+      <div class="tags">
+        {% for tag in tags %}
+        <button type="button" class="tag" :class="{ 'is-active': activeTags.includes('{{ tag }}') }"
+          @click="toggleTag('{{ tag }}')"> <span>{{ tag }}</span></button>
+        {% endfor %}
+      </div>
+    </search>
+    <h2>Articles:</h2>
+    <ul class="articles-list">
+      {% for article in articles %}
+      <li data-id="{{ article.id }}" x-show="isArticleVisible({{ article.id }})" x-collapse>
+        <article>
+          <h3><a href="{{ article.link }}" x-text="articlesData['{{ article.id }}']?.title[lang] ?? $el.innerHTML">{{
+              article.title.en }}</a></h3>
+          <div class="meta">
+            <time datetime="{{ article.date }}">{{ article.date }}</time>
+            <ul class="tags">
+              {% for tag in article.tags %}
+              <li class="tag" :class="{ 'is-active': activeTags.includes('{{ tag }}') }"><span>{{ tag }}</span></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <p class="summary" x-text="articlesData['{{ article.id }}']?.summary[lang] ?? $el.innerHTML">{{
+            article.summary.en }}</p>
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="no-articles" aria-hidden="true" aria-live="polite" x-show="hasNoResults" x-transition>No articles found
+      for the specified tags.</p>
+  </main>
+  <footer class="footer-navigation">
+    <nav>
+      <h2>Sitemap</h2>
+      <ol>
+        <li>Top: <a href="/">/root</a></li>
+      </ol>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+{
+    "codeblock": "<link rel=\"stylesheet\" href=\"/assets/prism/prism_light.css\" media=\"(prefers-color-scheme: light)\">\n<link rel=\"stylesheet\" href=\"/assets/prism/prism_dark.css\" media=\"(prefers-color-scheme: dark)\">\n<script defer src=\"/assets/prism/prism.js\"></script>\n",
+    "Twitter": "<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n"
+}
