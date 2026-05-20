@@ -34,7 +34,7 @@ The most unique point is multi-language support. Swallow is made to fly over bor
 
 ## Main functions
 
-Swallow has 4 main functions.
+Swallow has 3 main functions.
 
 1. Multi-language
 2. On-demand extensions loading
@@ -64,7 +64,7 @@ in your article frontmatter, Swallow picks them, and loads appropriate time.
 
 Exported JSON is not only for used to translate.
 
-When you write ankerlinks between your articles, Swallow replaces only replace contents. With prefetch, client doesn't have to see white screens and wait the article loaded.
+When you write ankerlinks between your articles, Swallow replaces only main contents. With prefetch, client doesn't have to see white screens and wait the article loaded.
 
 </section>
 <section id=installation>
