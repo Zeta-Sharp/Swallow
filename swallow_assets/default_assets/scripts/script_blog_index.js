@@ -10,20 +10,24 @@ document.addEventListener('alpine:init', () => {
         activeTags: [],
         articlesData: {},
         metaData: {},
-        lang: localStorage.getItem('selectedLang') || null,
+        lang: localStorage.getItem('selectedLang') || navigator.language.split('-')[0] || 'en',
 
         init() {
             fetch('/metadata.json')
                 .then(r => r.json())
                 .then(data => {
-                    this.metaData = data
+                    this.metaData = data;
+                    if (this.metaData["available_langs"].includes(this.lang)) {
+                        this.toggleLanguage(this.lang);
+                    } else {
+                        this.toggleLanguage(this.metaData["default_lang"]);
+                    }
                 });
             fetch("/article_data.json")
                 .then(r => r.json())
                 .then(data => {
                     this.articlesData = data
                 });
-            this.lang = localStorage.getItem('selectedLang') || this.metaData["available_langs"].includes(this.lang) ? this.lang : this.metaData["default_lang"];
         },
 
         toggleTag(tag) {
