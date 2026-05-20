@@ -6,7 +6,7 @@ document.addEventListener('alpine:init', () => {
         open: false,
 
         // Language state
-        lang: localStorage.getItem('selectedLang') || navigator.language.split('-')[0] || 'en',
+        lang: localStorage.getItem('selectedLang') || navigator.language.split('-')[0] || null,
 
         // Article state
         texts: null,
