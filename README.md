@@ -34,7 +34,7 @@ The most unique point is multi-language support. Swallow is made to fly over bor
 
 ## Main functions
 
-Swallow has 4 main functions.
+Swallow has 3 main functions.
 
 1. Multi-language
 2. On-demand extensions loading
