@@ -115,6 +115,7 @@ Frontmatter must be placed in your "default language" file.
 - `summary_[language]`: Summary of article. Required for all languages.
 - `extensions`: Requires external scripts to Swallow.  
 Currently, `Twitter` and `codeblock` is available. With your contribution, this function will be stronger. Optional.
+- `draft`: If true, Swallow skips generation. Optional.
 
 </section>
 <section id=contributing>
