@@ -54,7 +54,7 @@
       {% for article in articles %}
       <li data-id="{{ article.id }}" x-show="isArticleVisible({{ article.id }})" x-collapse>
         <article>
-          <h3><a href="{{ article.link }}" x-text="articlesData['{{ article.id }}']?.title[lang] ?? $el.innerHTML">{{
+          <h3><a href="{{ article.link }}" x-text="(lang && articlesData['{{ article.id }}']?.title[lang]) ?? $el.innerHTML">{{
               article.title.en }}</a></h3>
           <div class="meta">
             <time datetime="{{ article.date }}">{{ article.date }}</time>
@@ -64,7 +64,7 @@
               {% endfor %}
             </ul>
           </div>
-          <p class="summary" x-text="articlesData['{{ article.id }}']?.summary[lang] ?? $el.innerHTML">{{
+          <p class="summary" x-text="(lang && articlesData['{{ article.id }}']?.summary[lang]) ?? $el.innerHTML">{{
             article.summary.en }}</p>
         </article>
       </li>

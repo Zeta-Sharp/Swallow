@@ -48,7 +48,7 @@
   <main>
     <article>
       <header>
-        <h1 x-text="texts?.title?.[lang] ?? $el.innerText">
+        <h1 x-text="(lang && texts?.title?.[lang]) ?? $el.innerText">
           {{ title }}
         </h1>
         <div class="meta">
@@ -61,7 +61,7 @@
         </div>
       </header>
 
-      <div class="article-body" x-html="texts?.content?.[lang] ?? $el.innerHTML">
+      <div class="article-body" x-html="(lang && texts?.content?.[lang]) ?? $el.innerHTML">
         {{ article | safe }}
       </div>
     </article>
@@ -71,13 +71,13 @@
       <p class="newer-article" @click="showArticle(newerArticleId)" @pointerenter="prefetchArticle(newerArticleId)"
         x-show="newerArticleId !== null">
         ←
-        <span x-text="texts?.newer_article_title?.[lang] ?? 'Newer Article'">
+        <span x-text="(lang && texts?.newer_article_title?.[lang]) ?? 'Newer Article'">
           Newer Article
         </span>
       </p>
       <p class="older-article" @click="showArticle(olderArticleId)" @pointerenter="prefetchArticle(olderArticleId)"
         x-show="olderArticleId !== null">
-        <span x-text="texts?.older_article_title?.[lang] ?? 'Older Article'">
+        <span x-text="(lang && texts?.older_article_title?.[lang]) ?? 'Older Article'">
           Older Article
         </span>
         →

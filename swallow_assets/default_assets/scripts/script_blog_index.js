@@ -10,7 +10,7 @@ document.addEventListener('alpine:init', () => {
         activeTags: [],
         articlesData: {},
         metaData: {},
-        lang: localStorage.getItem('selectedLang') || navigator.language.split('-')[0] || 'en',
+        lang: localStorage.getItem('selectedLang') || navigator.language.split('-')[0] || null,
 
         init() {
             fetch('/metadata.json')
